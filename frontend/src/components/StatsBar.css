@@ -1,0 +1,77 @@
+/* ── Stats bar — editorial data row ── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-bottom: 48px;
+  animation: fadeUp 0.6s var(--ease-enter) 0.1s both;
+}
+
+.stats-bar__item {
+  padding: 24px 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-right: 1px solid var(--border);
+  background: var(--surface-raised);
+  transition: background var(--dur-fast) var(--ease-refined);
+  cursor: default;
+  animation: fadeUp 0.6s var(--ease-enter) both;
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-bar__item:last-child { border-right: none; }
+
+/* Top accent line on hover */
+.stats-bar__item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-normal) var(--ease-refined);
+}
+
+.stats-bar__item:hover::before { transform: scaleX(1); }
+.stats-bar__item:hover { background: var(--bg-alt); }
+
+.stats-bar__item:nth-child(1) { animation-delay: 0.08s; }
+.stats-bar__item:nth-child(2) { animation-delay: 0.14s; }
+.stats-bar__item:nth-child(3) { animation-delay: 0.20s; }
+.stats-bar__item:nth-child(4) { animation-delay: 0.26s; }
+
+.stats-bar__icon {
+  font-size: 1rem;
+  margin-bottom: 2px;
+  opacity: 0.6;
+}
+
+.stats-bar__value {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.stats-bar__label {
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+@media (max-width: 760px) {
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar__item:nth-child(2) { border-right: none; }
+  .stats-bar__item:nth-child(3) { border-top: 1px solid var(--border); }
+  .stats-bar__item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+}

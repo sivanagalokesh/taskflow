@@ -1,0 +1,100 @@
+/* Task card — Lacoste editorial grid item */
+.task-card {
+  position: relative;
+  background: var(--surface-raised);
+  padding: 28px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background var(--dur-fast) var(--ease-refined);
+  overflow: hidden;
+  cursor: default;
+
+  /* Staggered entry */
+  animation: fadeUp 0.55s var(--ease-enter) both;
+  animation-delay: calc(var(--index, 0) * 0.05s);
+}
+
+/* Left accent bar (very thin) */
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent, var(--border-strong));
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform var(--dur-normal) var(--ease-refined);
+}
+
+.task-card:hover { background: var(--bg-alt); }
+.task-card:hover::before { transform: scaleY(1); }
+
+/* ── Top row ── */
+.task-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.task-card__date {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+}
+
+/* ── Title ── */
+.task-card__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0;
+  letter-spacing: -0.01em;
+  transition: color var(--dur-fast) var(--ease-refined);
+}
+
+.task-card:hover .task-card__title { color: var(--accent); }
+
+/* ── Description ── */
+.task-card__description {
+  font-size: 0.84rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Divider ── */
+.task-card__divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* ── Actions ── */
+.task-card__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 36px;
+}
+
+/* Completed style */
+.task-card--completed .task-card__title {
+  color: var(--ink-faint);
+}
+
+.task-card--completed::before {
+  background: var(--status-completed);
+  transform: scaleY(1);
+}

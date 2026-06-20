@@ -1,0 +1,36 @@
+/* Status chip — editorial pill */
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  padding: 3px 9px;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-xs);
+  transition: opacity var(--dur-fast) var(--ease-refined);
+  opacity: 0.85;
+}
+
+.status-chip:hover { opacity: 1; }
+
+.status-chip__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Color variants */
+.status-chip[data-status="Pending"] {
+  color: var(--status-pending);
+}
+.status-chip[data-status="In Progress"] {
+  color: var(--status-progress);
+}
+.status-chip[data-status="Completed"] {
+  color: var(--status-completed);
+}

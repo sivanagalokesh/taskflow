@@ -1,0 +1,97 @@
+/* Add task — editorial centered form */
+.add-task {
+  padding: 64px 0 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-task__card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  padding: 52px 56px;
+  animation: scaleIn 0.5s var(--ease-enter) both;
+  position: relative;
+}
+
+/* Top rule — green accent */
+.add-task__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* ── Breadcrumb ── */
+.add-task__breadcrumb {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+}
+.add-task__breadcrumb a {
+  color: var(--accent);
+  font-weight: 500;
+  transition: opacity var(--dur-fast);
+}
+.add-task__breadcrumb a:hover { opacity: 0.6; }
+.add-task__breadcrumb span { color: var(--ink-faint); }
+
+/* ── Title ── */
+.add-task__title {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.add-task__subtitle {
+  color: var(--ink-muted);
+  font-size: 0.86rem;
+  margin: 0 0 36px;
+  font-style: italic;
+  font-family: var(--font-display);
+}
+
+/* ── Progress bar ── */
+.add-task__progress {
+  height: 1px;
+  background: var(--border);
+  margin-top: 8px;
+  overflow: hidden;
+}
+.add-task__progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width var(--dur-normal) var(--ease-refined);
+}
+.add-task__progress-fill--complete { background: var(--status-completed); }
+
+/* ── Actions ── */
+.add-task__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 680px) {
+  .add-task__card { padding: 36px 28px; }
+  .add-task__title { font-size: 2rem; }
+  .add-task__actions { flex-direction: column-reverse; }
+  .add-task__actions .btn { width: 100%; }
+}

@@ -1,0 +1,171 @@
+/* ═══════════════════════════════════════════
+   NAVBAR — Lacoste-style top bar
+   Clean, full-width, white/cream, serif brand
+═══════════════════════════════════════════ */
+
+/* Sticky top rule (editorial fashion-site style) */
+.navbar-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--border);
+  transition: background var(--dur-slow) var(--ease-refined),
+              border-color var(--dur-slow) var(--ease-refined);
+  animation: fadeDown 0.5s var(--ease-enter) both;
+}
+
+/* Thin top accent line — like Lacoste's green stripe */
+.navbar-wrap::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: var(--accent);
+  width: 100%;
+}
+
+.navbar {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  height: 68px;
+  gap: 40px;
+}
+
+/* ── Brand ── */
+.navbar__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  transition: opacity var(--dur-fast) var(--ease-refined);
+  margin-right: auto;
+  gap: 1px;
+}
+
+.navbar__brand:hover { opacity: 0.65; }
+
+.navbar__brand-name {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.navbar__brand-sub {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  line-height: 1;
+}
+
+/* ── Nav links ── */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navbar__link {
+  position: relative;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-decoration: none;
+  padding: 4px 0;
+  transition: color var(--dur-fast) var(--ease-refined);
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--dur-normal) var(--ease-refined);
+}
+
+.navbar__link:hover { color: var(--ink); }
+.navbar__link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.navbar__link--active {
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+.navbar__link--active::after {
+  transform: scaleX(1);
+}
+
+/* ── Actions ── */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar__username {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+}
+
+/* ── Theme toggle ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--t-fast);
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-glow);
+}
+
+/* ── Divider ── */
+.navbar__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-strong);
+}
+
+/* ── Responsive ── */
+@media (max-width: 700px) {
+  .navbar { padding: 0 20px; gap: 20px; height: 60px; }
+  .navbar__links { display: none; }
+  .navbar__username { display: none; }
+  .navbar__brand-sub { display: none; }
+  .navbar__brand-name { font-size: 1.3rem; }
+}

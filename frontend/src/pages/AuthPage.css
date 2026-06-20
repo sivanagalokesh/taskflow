@@ -1,0 +1,154 @@
+/* ═══════════════════════════════════════════
+   AUTH PAGE — Editorial login / register
+═══════════════════════════════════════════ */
+.auth-page {
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 71px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Left panel — decorative */
+.auth-page__left {
+  background: var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 64px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-page__left-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.35;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s var(--ease-enter) 0.2s both;
+}
+
+.auth-page__left-attr {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  animation: fadeIn 0.8s var(--ease-enter) 0.5s both;
+}
+
+/* Decorative lines on the left panel */
+.auth-page__left::before {
+  content: '';
+  position: absolute;
+  top: 48px;
+  left: 56px;
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.4);
+}
+
+.auth-page__left::after {
+  content: 'TF';
+  position: absolute;
+  top: 32px;
+  left: 56px;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+/* Right panel — form */
+.auth-page__right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 56px;
+  background: var(--surface-raised);
+}
+
+/* Card (inside right panel) */
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+  animation: fadeUp 0.6s var(--ease-enter) 0.1s both;
+}
+
+.auth-card__eyebrow {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.auth-card__eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.auth-card__title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 8px;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.auth-card__subtitle {
+  color: var(--ink-muted);
+  font-size: 0.88rem;
+  margin: 0 0 36px;
+  line-height: 1.6;
+}
+
+/* Footer link */
+.auth-card__footer {
+  text-align: left;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.auth-card__footer a {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 2px;
+  transition: text-decoration-color var(--dur-fast) var(--ease-refined);
+}
+
+.auth-card__footer a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 860px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+  .auth-page__left { display: none; }
+  .auth-page__right {
+    padding: 48px 28px;
+    min-height: calc(100vh - 71px);
+    align-items: flex-start;
+    padding-top: 64px;
+  }
+}

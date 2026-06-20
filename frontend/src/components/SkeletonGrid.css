@@ -1,0 +1,36 @@
+/* Skeleton — matching the editorial card grid */
+.skeleton-card {
+  background: var(--surface-raised);
+  padding: 28px 26px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeUp 0.5s var(--ease-enter) both;
+}
+
+.skeleton-card:nth-child(1) { animation-delay: 0.03s; }
+.skeleton-card:nth-child(2) { animation-delay: 0.07s; }
+.skeleton-card:nth-child(3) { animation-delay: 0.11s; }
+.skeleton-card:nth-child(4) { animation-delay: 0.15s; }
+.skeleton-card:nth-child(5) { animation-delay: 0.19s; }
+.skeleton-card:nth-child(6) { animation-delay: 0.23s; }
+
+.skeleton-line {
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--bg-alt) 0%,
+    var(--border-strong) 50%,
+    var(--bg-alt) 100%
+  );
+  background-size: 300% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.skeleton-line--chip        { width: 80px;  height: 20px; }
+.skeleton-line--title       { width: 70%;   height: 18px; margin-top: 6px; }
+.skeleton-line--text        { width: 100%;  height: 11px; }
+.skeleton-line--text-md     { width: 85%;   height: 11px; }
+.skeleton-line--text-short  { width: 55%;   height: 11px; }
+.skeleton-line--divider     { width: 100%;  height: 1px;  background: var(--border); animation: none; }
+.skeleton-line--action      { width: 100px; height: 28px; }
