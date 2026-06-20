@@ -8,7 +8,25 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      
+      const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
+      
+      // If wildcard is used or origin matches exactly
+      if (clientOrigin === '*' || origin === clientOrigin || origin === 'http://localhost:3000') {
+        return callback(null, true);
+      }
+      
+      // Fallback check to avoid deployment headaches on Render
+      if (origin.includes('onrender.com') || origin.includes('localhost')) {
+        return callback(null, true);
+      }
+      
+      return callback(new Error('Blocked by CORS policy'), false);
+    },
+    credentials: true
   })
 );
 app.use(express.json());
