@@ -1,107 +1,113 @@
 # TaskFlow — Mini Project Management Portal
 
-A full-stack task management app built for the o2h Full Stack Application Developer
-assessment. Users can register/log in, create tasks, mark them complete, delete them,
-filter by status, search, sort, paginate, and view dashboard stats — all behind JWT
-authentication.
+A full-stack task management application featuring an editorial, premium design aesthetic inspired by **Lacoste Heritage 2026**. Users can register/log in, create tasks, manage them, view analytics, and customize their interface, all running on a fully secured JWT authentication layer.
 
-**Stack:** React.js (frontend) · Node.js + Express (backend) · MongoDB + Mongoose
+**Live Application Demo:**
+* **Frontend Static Site:** [https://taskflow-client-tk0l.onrender.com](https://taskflow-client-tk0l.onrender.com)
+* **Backend API Service:** [https://taskflow-api-i17s.onrender.com](https://taskflow-api-i17s.onrender.com)
+
+**Stack:** React.js (frontend) · Node.js + Express (backend) · MongoDB + Mongoose (database)
 
 ---
 
-## 1. Project structure
+## 🎨 Premium Editorial Design Aesthetic
+
+The application is styled using a custom design language inspired by modern, premium editorial interfaces:
+* **Maison Color Palette**: Features a warm off-white *Farine* canvas (`#f7f4ef`), *Clay* accents (`#c8a882`), and deep *Forest Green* (`#1a3a2a`) brand highlights.
+* **Atelier Evening Mode**: A custom, dark-theme variant featuring warm charcoal canvas (`#141210`) and soft desaturated forest tones.
+* **Refined Typography**: Uses editorial serif headings combined with minimalist geometric numerals for dashboard metrics.
+* **Micro-interactions**: Underline-only input focus shifts, sliding underline navigation indicators, and card borders that draw upwards on hover.
+
+---
+
+## 1. Project Structure
 
 ```
 project-root/
 ├─ frontend/
 │  ├─ src/
 │  │  ├─ components/   # Reusable UI: Navbar, TaskCard, FilterBar, StatsBar, etc.
-│  │  ├─ pages/         # Route-level views: Dashboard, AddTask, Login, Register
-│  │  ├─ services/      # Axios API clients (authService, taskService)
-│  │  └─ context/       # AuthContext (JWT session), ThemeContext (dark mode)
-│  └─ public/
+│  │  ├─ pages/        # Route views: Dashboard, AddTask, Login, Register
+│  │  ├─ services/     # Axios API client (api.js, authService, taskService)
+│  │  ├─ context/      # AuthContext (JWT session), ThemeContext (dark mode)
+│  │  └─ styles/       # Design system tokens (global.css) and layout rules (ui.css)
+│  ├─ public/          # Static assets & SPA redirects configuration (_redirects)
+│  └─ vercel.json      # Client-side routing configuration for Vercel
 └─ backend/
-   ├─ routes/           # Express route definitions
-   ├─ controllers/      # Request handlers / business logic
-   ├─ models/           # Mongoose schemas (Task, User)
-   ├─ middleware/        # JWT auth guard, centralized error handler
-   ├─ config/           # MongoDB connection
-   └─ tests/            # Jest + Supertest API tests
+   ├─ routes/          # Express route definitions
+   ├─ controllers/     # Request handlers & business logic
+   ├─ models/          # Mongoose schemas (Task, User)
+   ├─ middleware/      # JWT auth guard, robust CORS resolver, error handlers
+   ├─ config/          # MongoDB connection
+   └─ tests/           # Jest + Supertest API tests
 ```
 
 ---
 
-## 2. Setup steps
+## 2. Setup Steps
 
 ### Prerequisites
 - Node.js 18+
-- A MongoDB instance — either local (`mongodb://127.0.0.1:27017`) or a free
-  [MongoDB Atlas](https://www.mongodb.com/atlas) cluster
+- A MongoDB instance (local or MongoDB Atlas cluster)
 
-### Clone
-```bash
-git clone <your-repo-url>
-cd project-root
-```
+### Local Development
 
-### Backend
-```bash
-cd backend
-npm install
-cp .env.example .env
-# edit .env and set MONGO_URI / JWT_SECRET if needed
-npm run dev          # starts on http://localhost:5000 with nodemon
-# or: npm start       # production start
-```
+1. **Clone the repository**:
+   ```bash
+   git clone <your-repo-url>
+   cd project-root
+   ```
 
-### Frontend
-```bash
-cd frontend
-npm install
-cp .env.example .env
-# edit .env if your backend isn't on http://localhost:5000
-npm start             # starts on http://localhost:3000
-```
+2. **Backend Setup**:
+   ```bash
+   cd backend
+   npm install
+   # Create a .env file and set PORT, MONGO_URI, and JWT_SECRET
+   npm run dev
+   ```
 
-### Run backend tests
+3. **Frontend Setup**:
+   ```bash
+   cd ../frontend
+   npm install
+   # Start the development server (runs on http://localhost:3000)
+   npm start
+   ```
+
+### Running Backend Tests
 ```bash
 cd backend
-npm test              # Jest + Supertest, uses an in-memory MongoDB
+npm test              # Runs Jest + Supertest (uses an in-memory MongoDB)
 ```
-
-> Note: `mongodb-memory-server` downloads a MongoDB binary on first run. If your
-> network blocks that download, run tests against a local MongoDB instead, or
-> point `MONGO_URI` in `.env` at a disposable test database.
 
 ---
 
-## 3. Assumptions
+## 3. Production Deployment Guide (Render)
 
-- **Auth is per-user**: each task belongs to the user who created it (`user` field
-  on the Task model). Task list, stats, and mutations are scoped to `req.user.id` —
-  one account never sees another account's tasks. This wasn't explicit in the brief
-  but is the only sensible behavior once JWT login is added.
-- **Status values** are fixed to `Pending`, `In Progress`, `Completed` (enum on the
-  backend). The "Add Task" form only offers Pending/In Progress per the brief —
-  tasks move to Completed via the dashboard's "Mark complete" action.
-- **Description minimum (20 chars)** is enforced both client-side (inline form
-  validation) and server-side (Mongoose schema + controller check), since the brief
-  listed it as a validation requirement.
-- **Soft confirmation on delete**: the Delete button requires a second click
-  ("Click again to confirm") instead of a browser `confirm()` dialog, to keep the
-  UI consistent and testable.
-- **Pagination default**: 9 tasks per page (grid of 3×3) on the dashboard; the API
-  itself defaults to 10 and accepts `limit` up to 100.
-- **No PHP/Laravel variant**: the brief offered Node/Express OR PHP/Laravel; this
-  submission uses Node/Express throughout.
-- **Dark mode** preference is stored in `localStorage` and applied via a
-  `data-theme` attribute, no backend involvement.
+This project is optimized for separated deployment (Option C) on **Render**:
+
+### Backend Deployment (Web Service)
+1. Create a **Web Service** on Render pointing to your repository.
+2. Set **Root Directory** to `backend`.
+3. Set **Build Command** to `npm install` and **Start Command** to `npm start`.
+4. Configure the following **Environment Variables**:
+   * `NODE_ENV`: `production`
+   * `MONGO_URI`: `[Your MongoDB Atlas Connection String]`
+   * `JWT_SECRET`: `[A long random secret phrase]`
+   * `CLIENT_ORIGIN`: `https://taskflow-client-tk0l.onrender.com` (Your deployed frontend URL)
+
+### Frontend Deployment (Static Site)
+1. Create a **Static Site** on Render pointing to your repository.
+2. Set **Root Directory** to `frontend`.
+3. Set **Build Command** to `npm run build` and **Publish Directory** to `build`.
+4. Configure the following **Environment Variable**:
+   * `REACT_APP_API_BASE_URL`: `https://taskflow-api-i17s.onrender.com/api` (Your deployed backend API URL + `/api`)
 
 ---
 
-## 4. API documentation
+## 4. API Documentation
 
-Base URL: `http://localhost:5000/api`
+Base URL: `http://localhost:5000/api` (Local) or `https://taskflow-api-i17s.onrender.com/api` (Production)
 
 All `/tasks/*` routes require a JWT in the `Authorization: Bearer <token>` header.
 
@@ -109,97 +115,16 @@ All `/tasks/*` routes require a JWT in the `Authorization: Bearer <token>` heade
 
 | Method | Endpoint | Body | Description |
 |---|---|---|---|
-| POST | `/auth/register` | `{ name, email, password }` | Create an account, returns `{ token, user }` |
+| POST | `/auth/register` | `{ name, email, password }` | Create account, returns `{ token, user }` |
 | POST | `/auth/login` | `{ email, password }` | Log in, returns `{ token, user }` |
-| GET | `/auth/me` | — | Returns the current authenticated user (requires token) |
+| GET | `/auth/me` | — | Returns current authenticated user |
 
 ### Tasks
 
 | Method | Endpoint | Body / Query | Description |
 |---|---|---|---|
-| GET | `/tasks` | `?status=&search=&sort=&page=&limit=` | List the current user's tasks (filter/search/sort/paginate) |
-| GET | `/tasks/stats` | — | `{ totalTasks, pendingTasks, inProgressTasks, completedTasks }` |
+| GET | `/tasks` | `?status=&search=&sort=&page=&limit=` | List user's tasks (filtered, paginated, sorted) |
+| GET | `/tasks/stats` | — | Fetch task metrics |
 | POST | `/tasks` | `{ title, description, status? }` | Create a task |
-| PUT | `/tasks/:id` | `{ status?, title?, description? }` | Update a task (e.g. mark complete) |
+| PUT | `/tasks/:id` | `{ status?, title?, description? }` | Update a task status or body |
 | DELETE | `/tasks/:id` | — | Delete a task |
-
-**GET /tasks query params**
-
-| Param | Example | Notes |
-|---|---|---|
-| `status` | `Pending` \| `In Progress` \| `Completed` | Exact match filter |
-| `search` | `login` | Case-insensitive match on title or description |
-| `sort` | `-created_at` (default) \| `created_at` | `-` prefix = descending |
-| `page` | `1` | 1-indexed |
-| `limit` | `10` | Max 100 |
-
-**Example: create a task**
-```bash
-curl -X POST http://localhost:5000/api/tasks \
-  -H "Authorization: Bearer <token>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Build Login Page",
-    "description": "Create a responsive login page",
-    "status": "Pending"
-  }'
-```
-
-**Example response shape (GET /tasks)**
-```json
-{
-  "data": [
-    {
-      "_id": "665f1c2e9a1b2c3d4e5f6789",
-      "title": "Build Login Page",
-      "description": "Create a responsive login page",
-      "status": "Pending",
-      "user": "665f1c0a9a1b2c3d4e5f6700",
-      "created_at": "2026-06-18T10:22:00.000Z",
-      "updated_at": "2026-06-18T10:22:00.000Z"
-    }
-  ],
-  "pagination": { "total": 1, "page": 1, "limit": 10, "totalPages": 1 }
-}
-```
-
-All error responses follow `{ "message": "..." }` with an appropriate HTTP status
-code (400 validation, 401 unauthorized, 404 not found, 409 conflict, 500 server).
-
----
-
-## 5. Features implemented
-
-**Core**
-- [x] View all tasks (cards, dashboard)
-- [x] Create a new task (with validation)
-- [x] Mark a task as completed
-- [x] Delete a task
-- [x] Filter tasks by status
-- [x] Responsive, mobile-friendly UI
-- [x] Loading indicator (skeleton grid) while fetching
-- [x] Empty state when no tasks exist
-- [x] Dark mode toggle (bonus)
-
-**Advanced**
-- [x] User login (JWT authentication, tasks scoped per user)
-- [x] Search tasks (title/description)
-- [x] Pagination
-- [x] Sort by created date
-- [x] Dashboard statistics (total / pending / in progress / completed)
-- [x] Unit tests (Jest + Supertest, in-memory MongoDB)
-
----
-
-## 6. Suggested commit history
-
-```
-Initial project setup
-Implemented task APIs
-Added React Dashboard
-Integrated frontend with backend
-Added JWT authentication
-Added search, pagination, sort and stats
-Added unit tests
-Updated README
-```
